@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スマイロ - 住まいのメンテナンス・お掃除</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+      background-color: #faf6f0;
+      color: #5a4a42;
+      line-height: 1.6;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #8c6d58;
+    }
+
+    .header-btn {
+      background-color: #8c6d58;
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .hero {
+      position: relative;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+      max-height: 480px;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 650px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    .hero-text h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      word-break: keep-all;
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+    }
+
+    .services {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.6rem;
+      color: #8c6d58;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background-color: #d4a373;
+      margin: 0.5rem auto 0;
+      border-radius: 2px;
+    }
+
+    .service-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.8rem;
+    }
+
+    .service-card {
+      background: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(90, 74, 66, 0.08);
+      transition: transform 0.2s ease;
+      width: calc(33.333% - 1.2rem);
+      min-width: 260px;
+      max-width: 310px;
+      text-align: center;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .service-card-body {
+      padding: 1.2rem;
+    }
+
+    .service-card-body h4 {
+      font-size: 1.2rem;
+      color: #72533e;
+      margin-bottom: 0.4rem;
+    }
+
+    .service-card-body p {
+      font-size: 0.95rem;
+      color: #6b5b52;
+    }
+
+    .about-section {
+      max-width: 900px;
+      margin: 4rem auto 2rem;
+      padding: 0 1.5rem;
+    }
+
+    .about-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      box-shadow: 0 4px 12px rgba(90, 74, 66, 0.08);
+    }
+
+    @media (min-width: 600px) {
+      .about-card {
+        flex-direction: row;
+      }
+    }
+
+    .about-card img {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .about-card-text p {
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+
+    .info-section {
+      max-width: 900px;
+      margin: 3rem auto 4rem;
+      padding: 0 1.5rem;
+    }
+
+    .info-table {
+      width: 100%;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(90, 74, 66, 0.08);
+      border-collapse: collapse;
+      overflow: hidden;
+    }
+
+    .info-table th, .info-table td {
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid #faf6f0;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    .info-table tr:last-child th,
+    .info-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .info-table th {
+      width: 25%;
+      background-color: #f7efe9;
+      color: #72533e;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .info-table td {
+      color: #5a4a42;
+    }
+
+    @media (max-width: 600px) {
+      .info-table th, .info-table td {
+        display: block;
+        width: 100%;
+      }
+      .info-table th {
+        background-color: #f7efe9;
+        padding-bottom: 0.5rem;
+      }
+      .info-table td {
+        padding-top: 0.5rem;
+      }
+    }
+
+    .contact-section {
+      background-color: #ebdcd0;
+      text-align: center;
+      padding: 3.5rem 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .contact-section h3 {
+      font-size: 1.6rem;
+      color: #5a4a42;
+      margin-bottom: 0.8rem;
+    }
+
+    .contact-section p {
+      margin-bottom: 2rem;
+    }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      background-color: #06c755;
+      color: white;
+    }
+
+    .btn-secondary {
+      background-color: #8c6d58;
+      color: white;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: #5a4a42;
+      color: #ebdcd0;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">スマイロ</div>
+    <a href="#contact" class="header-btn">お問い合わせ</a>
+  </header>
+
+  <section class="hero">
+    <img src="top001.jpeg" alt="スマイロ メインビジュアル">
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+      <h2>暮らしに、小さな笑顔と心地よさを。</h2>
+      <p>お部屋のメンテナンス・張り替え・お掃除まで、丁寧にお手伝いします。</p>
+    </div>
+  </section>
+
+  <section class="services">
+    <h3 class="section-title">スマイロのお仕事</h3>
+    <div class="service-grid">
+      <!-- 1段目 (3つ) -->
+      <div class="service-card">
+        <img src="husuma.jpeg" alt="襖の張替え">
+        <div class="service-card-body">
+          <h4>襖の張替え</h4>
+          <p>お部屋の印象をパッと明るく清々しく仕上げます。</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="syoji.jpeg" alt="障子の張替え">
+        <div class="service-card-body">
+          <h4>障子の張替え</h4>
+          <p>日差しをやさしく届けるキレイな和紙に張替えます。</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="kabegami.jpeg" alt="壁紙・クロス張替え">
+        <div class="service-card-body">
+          <h4>壁紙・クロス張替え</h4>
+          <p>お好みの柄やデザインで、お部屋をガラリと模様替え。</p>
+        </div>
+      </div>
+
+      <!-- 2段目 (2つ・中央寄せ) -->
+      <div class="service-card">
+        <img src="tatami.jpeg" alt="畳替え">
+        <div class="service-card-body">
+          <h4>畳替え</h4>
+          <p>い草から和紙・樹脂まで、お好みの和空間へコーディネート。</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="amido.jpeg" alt="網戸の張替え">
+        <div class="service-card-body">
+          <h4>網戸の張替え</h4>
+          <p>破れやたわみもきれいに修繕。心地よい風を通します。</p>
+        </div>
+      </div>
+
+      <!-- 3段目 (2つ・中央寄せ) -->
+      <div class="service-card">
+        <img src="houseclean.jpeg" alt="ハウスクリーニング">
+        <div class="service-card-body">
+          <h4>ハウスクリーニング</h4>
+          <p>賃貸物件の入退去時清掃に対応。すみずみまでピカピカに仕上げます。</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="minpaku.jpeg" alt="民泊・リネン管理">
+        <div class="service-card-body">
+          <h4>民泊・リネン管理</h4>
+          <p>ベッドメイキングや室内清掃・各種管理もお任せください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <h3 class="section-title">スマイロの想い</h3>
+    <div class="about-card">
+      <img src="top001.jpeg" alt="スマイロの想い">
+      <div class="about-card-text">
+        <p>丁寧な作業と温かい対応で、毎日過ごすお家を笑顔あふれる心地よい空間にします。</p>
+        <p>「これ、どこに頼めばいいのかな？」というちょっとした修繕やお掃除も、どうぞお気軽にお声がけください！</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section">
+    <h3 class="section-title">事業者概要</h3>
+    <table class="info-table">
+      <tr>
+        <th>屋号</th>
+        <td>スマイロ</td>
+      </tr>
+      <tr>
+        <th>代表者</th>
+        <td>冨樫 友香</td>
+      </tr>
+      <tr>
+        <th>所在地</th>
+        <td>神奈川県横須賀市吉井4-31-1</td>
+      </tr>
+      <tr>
+        <th>事業内容</th>
+        <td>畳・襖・障子・網戸の張替え / 壁紙・クロス施工 / ハウスクリーニング / 民泊清掃・管理</td>
+      </tr>
+      <tr>
+        <th>連絡先</th>
+        <td>wakuukan.iroha@gmail.com</td>
+      </tr>
+    </table>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <h3>お気軽にご相談ください</h3>
+    <p>お見積り・ご相談は無料です。LINEやメールでお気軽にお問い合わせください。</p>
+    <div class="contact-buttons">
+      <a href="https://lin.ee/WCwXWhA" target="_blank" rel="noopener noreferrer" class="btn btn-primary">LINEで相談する</a>
+      <a href="mailto:wakuukan.iroha@gmail.com" class="btn btn-secondary">メールで相談する</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; スマイロ All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
