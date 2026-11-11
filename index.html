@@ -157,20 +157,37 @@
       color: #6b5b52;
     }
 
-.price-item {
+/* 料金表セクション */
+    .price-section {
+      max-width: 900px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ▼ ここに .price-item のスタイルを追加するよ！ */
+    .price-item {
       background: #ffffff;
       border-radius: 16px;
       padding: 1.5rem;
       box-shadow: 0 4px 12px rgba(90, 74, 66, 0.08);
       border-left: 5px solid #d4a373;
-      scroll-margin-top: 90px; /* 固定ヘッダー分のズレ防止 */
+      scroll-margin-top: 90px;
       transition: transform 0.2s ease;
     }
 
     .price-item:hover {
       transform: translateY(-2px);
     }
-    
+    /* ▲ ここまで */
+
+    .price-amount {
+      /* （この下に続きます） */    
     .about-section {
       max-width: 900px;
       margin: 4rem auto 2rem;
